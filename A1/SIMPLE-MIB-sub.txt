@@ -1,0 +1,83 @@
+SIMPLE-MIB DEFINITIONS ::= BEGIN
+
+------------------------------------------------------------------------
+-- Simple example MIB for python-netsnmpagent
+-- Copyright (c) 2012-2016 Pieter Hollants <pieter@hollants.com>
+-- Licensed under the GNU Lesser Public License (LGPL) version 3
+------------------------------------------------------------------------
+
+-- Imports
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE,
+    Integer32, Unsigned32, Counter32, Counter64, TimeTicks, IpAddress,
+    enterprises
+        FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION, DisplayString
+        FROM SNMPv2-TC
+    MODULE-COMPLIANCE, OBJECT-GROUP, NOTIFICATION-GROUP
+        FROM SNMPv2-CONF
+    agentxObjects
+        FROM AGENTX-MIB;
+
+-- Description and update information                                                                                                            
+simpleMIB MODULE-IDENTITY
+    LAST-UPDATED "201307070000Z"
+    ORGANIZATION "N/A"
+    CONTACT-INFO
+        "Editor:
+        Pieter Hollants
+        EMail: <pieter@hollants.com>"
+    DESCRIPTION
+        "Simple example MIB for python-netsnmpagent"
+
+    REVISION    "201307070000Z"
+    DESCRIPTION
+        "A simple example MIB for python-netsnmpagent's simple.py."
+
+    ::= { agentxObjects 30187 }
+
+-- Definition of a generic SimpleNotificationStatus type
+SimpleNotificationStatus ::= TEXTUAL-CONVENTION
+    STATUS current
+    DESCRIPTION
+        "Indicates the enabling or disabling of a particular class of
+        notifications."
+    SYNTAX INTEGER {
+        disabled (0),   -- This class of notifications is disabled
+        enabled  (1)    -- This class of notifications is enabled
+}
+
+-- Definition of MIB's root nodes
+
+simpleMIBObjects         OBJECT IDENTIFIER ::= { simpleMIB 1 }
+simpleMIBNotifications   OBJECT IDENTIFIER ::= { simpleMIB 2 }
+simpleMIBConformance     OBJECT IDENTIFIER ::= { simpleMIB 3 }
+
+simpleScalars            OBJECT IDENTIFIER ::= { simpleMIBObjects 1 }
+simpleTables             OBJECT IDENTIFIER ::= { simpleMIBObjects 2 }
+
+------------------------------------------------------------------------
+-- Scalars
+------------------------------------------------------------------------
+
+
+
+simpleCounter32 OBJECT-TYPE
+    SYNTAX      Counter32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "A read-only, unsigned, 32-bits counter value."
+    ::= { simpleScalars 5 }
+
+simpleTimeTicks OBJECT-TYPE
+    SYNTAX      TimeTicks
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+        "A read-only, unsigned, 32-bits TimeTicks value."
+    ::= { simpleScalars 7 }
+
+
+
+END
