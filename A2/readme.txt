@@ -1,0 +1,1 @@
+Usage : prober <Agent IP:port:community> <sampling interval> <OID1> <OID2> ...... <OIDN>
